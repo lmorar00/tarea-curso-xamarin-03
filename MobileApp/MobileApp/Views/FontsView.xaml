@@ -14,15 +14,14 @@
                 <CollectionView Margin="20,10,20,0"
                             ItemSizingStrategy="MeasureAllItems"
                             ItemsSource="{Binding FontFamilies}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Frame BorderColor="LightGray" Margin="1,1,0,0.5" HasShadow="False">
-                                    <Label Text="{Binding FontFamilyName}" FontFamily="{Binding FontFamilyName}" />
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="LightGray" Margin="1,1,0,0.5" HasShadow="False">
+                                <Label Text="{Binding FontFamilyName}" FontFamily="{Binding FontFamilyName}" />
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
                 </CollectionView>
-        
             </RefreshView>
         </StackLayout>
     </ContentPage.Content>

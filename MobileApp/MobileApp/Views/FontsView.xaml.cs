@@ -1,70 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MobileApp.Views
 {
-	public partial class FontsView
-	{
-		public ObservableCollection<FontItem> FontFamilies { get; set; } = new ObservableCollection<FontItem>();
-		public Command RefreshCommand { get; private set; }
-		
-		public FontsView()
-		{
-			RefreshCommand = new Command(async () => await Refresh());
-			InitializeComponent();
+    public partial class FontsView
+    {
+        public ObservableCollection<FontItem> FontFamilies { get; set; } = new ObservableCollection<FontItem>();
+        public Command RefreshCommand { get; private set; }
 
-			IconImageSource = Device.RuntimePlatform == Device.iOS ? "AppIcon" : "icon.png";
-		}
+        public FontsView()
+        {
+            RefreshCommand = new Command(async () => await Refresh());
+            InitializeComponent();
 
-		protected override async void OnAppearing()
-		{
-			base.OnAppearing();
+            IconImageSource = Device.RuntimePlatform == Device.iOS ? "AppIcon" : "icon.png";
+        }
 
-			await Refresh();
-		}
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
 
-		private async Task Refresh()
-		{
-			FontFamilies.Clear();
-			IsBusy = true;
+            await Refresh();
+        }
 
-			var taskGroups = await GetFonts().ConfigureAwait(false);
+        private async Task Refresh()
+        {
+            FontFamilies.Clear();
+            IsBusy = true;
 
-			foreach (var item in taskGroups)
-			{
-				FontFamilies.Add(item);
-			}
+            var taskGroups = await GetFonts().ConfigureAwait(false);
 
-			IsBusy = false;
-		}
+            foreach (var item in taskGroups)
+            {
+                FontFamilies.Add(item);
+            }
 
-		private async Task<IEnumerable<FontItem>> GetFonts()
-		{
-			await Task.Delay(3000);
+            IsBusy = false;
+        }
 
-			var fonts = new List<FontItem> {
-				new FontItem { FontFamilyName = new Label().FontFamily },
-				new FontItem { FontFamilyName = "Lobster" },
-				new FontItem { FontFamilyName = "ArchitectsDaughter" },
-			};
+        private async Task<IEnumerable<FontItem>> GetFonts()
+        {
+            await Task.Delay(3000);
 
-			return fonts;
-		}
+            var fonts = new List<FontItem> {
+                new FontItem { FontFamilyName = new Label().FontFamily },
+                new FontItem { FontFamilyName = "Lobster" },
+                new FontItem { FontFamilyName = "ArchitectsDaughter" },
+                new FontItem { FontFamilyName = "Font Awesome 6" },
+            };
 
-		public class FontItem
-		{
-			public string Icon { get; set; }
-			public string FontFamilyName { get; set; }
-			public string SampleText { get; set; }
+            return fonts;
+        }
 
-			public FontItem()
-			{
-				SampleText = FontFamilyName;
-			}
-		}
-	}
+        public class FontItem
+        {
+            public string Icon { get; set; }
+            public string FontFamilyName { get; set; }
+            public string SampleText { get; set; }
+
+            public FontItem()
+            {
+                SampleText = FontFamilyName;
+            }
+        }
+    }
 }
-
